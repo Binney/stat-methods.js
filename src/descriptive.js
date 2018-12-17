@@ -38,7 +38,7 @@ export function product(arr) {
   let result = 1;
   for (let i = 0; i < arr.length; i += 1) {
     if (!Number.isFinite(arr[i])) return undefined;
-    result = result * arr[i];
+    result *= arr[i];
   }
   return result;
 }
