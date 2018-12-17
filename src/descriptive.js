@@ -49,8 +49,24 @@ export function sum(arr) {
   return result;
 }
 
+/**
+ * Returns the product of all entries in a numeric data array.
+ * @param {Number[]} arr the data array
+ * @returns {Number} the product of all entries in the array
+ */
+export function product(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) return undefined;
+  let result = 1;
+  for (let i = 0; i < arr.length; i += 1) {
+    if (!Number.isFinite(arr[i])) return undefined;
+    result *= arr[i];
+  }
+  return result;
+}
+
 export default {
   min,
   max,
   sum,
+  product,
 };
