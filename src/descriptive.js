@@ -28,7 +28,29 @@ export function max(arr) {
   return result;
 }
 
+/**
+ * Return the sum of all entries in a numeric array.
+ * @param {Number[]} arr the data array
+ * @returns {Number} the sum of all entries in the array
+ */
+export function sum(arr) {
+  if (!Array.isArray(arr)) return undefined;
+  if (arr.length === 0) return 0;
+  // See https://en.wikipedia.org/wiki/Kahan_summation_algorithm
+  let result = 0;
+  let c = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    if (!Number.isFinite(arr[i])) return undefined;
+    let y = arr[i] - c;
+    let t = result + y;
+    c = (t - result) - y;
+    result = t;
+  }
+  return result;
+}
+
 export default {
   min,
   max,
+  sum,
 };

@@ -332,6 +332,18 @@ max([2.5, 3.25, -2, 5.75]); // -> 5.75
 
 If the data array is empty or contains a non finite `Number`, the method returns `undefined`.
 
+#### sum
+
+Return the sum of all values in a numeric data array.
+
+Uses the [Kahan summation algorithm](https://en.wikipedia.org/wiki/Kahan_summation_algorithm) to reduce error.
+
+```js
+sum([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7]); // -> 15.3
+```
+
+If the data array is empty or contains a non finite `Number`, the method returns `undefined`.
+
 ### Measures of similarity
 
 These methods compute a measure of the similarity between samples or populations.
