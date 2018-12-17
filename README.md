@@ -35,6 +35,7 @@ npm i stat-methods
 3.  [Descriptive statistics](#Descriptive-statistics)
     -   [min](#min)
     -   [max](#max)
+    -   [sum](#sum)
     -   [product](#product)
   
 4.  [Measures of similarity](#Measures-of-similarity)
@@ -337,7 +338,7 @@ If the data array is empty or contains a non finite `Number`, the method returns
 
 Return the sum of all values in a numeric data array.
 
-Uses the [Kahan summation algorithm](https://en.wikipedia.org/wiki/Kahan_summation_algorithm) to reduce error.
+Uses the [Kahan summation algorithm](https://en.wikipedia.org/wiki/Kahan_summation_algorithm) to reduce error. This compensates for loss of precision when the result is large compared to the smallest items in the array, by calculating the floating-point error in each summation and rolling it over to the next iteration.
 
 ```js
 sum([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7]); // -> 15.3

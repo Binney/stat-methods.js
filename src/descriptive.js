@@ -29,22 +29,24 @@ export function max(arr) {
 }
 
 /**
- * Return the sum of all entries in a numeric array.
+ * Return the sum of all entries in a numeric array,
+ * using the Kahan summation algorithm.
+ * This compensates for loss of precision when the result is large compared to
+ * the smallest items in the array.
+ * See https://en.wikipedia.org/wiki/Kahan_summation_algorithm
  * @param {Number[]} arr the data array
  * @returns {Number} the sum of all entries in the array
  */
 export function sum(arr) {
-  if (!Array.isArray(arr)) return undefined;
-  if (arr.length === 0) return 0;
-  // See https://en.wikipedia.org/wiki/Kahan_summation_algorithm
+  if (!Array.isArray(arr) || arr.length === 0) return undefined;
   let result = 0;
-  let c = 0;
+  let c = 0; // Running compensation of accumulated floating point errors
   for (let i = 0; i < arr.length; i += 1) {
     if (!Number.isFinite(arr[i])) return undefined;
-    let y = arr[i] - c;
-    let t = result + y;
-    c = (t - result) - y;
-    result = t;
+    const y = arr[i] - c;
+    const t = result + y; // result is large and y may be small, so least significant bits of y may be lost.
+    c = (t - result) - y; // (t - result) cancels the high-order part of y, so we're left with only the least bits
+    result = t; // carry over c to the next iteration
   }
   return result;
 }
